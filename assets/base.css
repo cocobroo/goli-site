@@ -17,6 +17,7 @@
   --gold:    #E8B92E;          /* estrellas */
 
   --font: "Montserrat", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-brand: "Poppins", "Montserrat", system-ui, sans-serif;   /* wordmark estilo frasco Goli */
 
   --r:    16px;
   --r-lg: 26px;
@@ -74,7 +75,7 @@ p { margin:0 0 1em; color:var(--ink-soft); }
 /* ---- Header ---- */
 .site-header { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.86); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
 .site-header__inner { display:flex; align-items:center; justify-content:space-between; height:64px; }
-.brand { font-weight:800; font-size:1.6rem; letter-spacing:-.04em; color:var(--ink); }
+.brand { font-family:var(--font-brand); font-weight:800; font-size:1.7rem; letter-spacing:-.03em; color:var(--ink); }
 .brand b { color:var(--red); font-weight:800; }
 .nav { display:none; gap:1.8rem; font-size:.92rem; font-weight:600; }
 .nav a { color:var(--ink-soft); transition:color .2s; }
