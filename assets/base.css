@@ -246,3 +246,106 @@ p { margin:0 0 1em; color:var(--ink-soft); }
 .drawer__note { font-size:.8rem; color:var(--muted); margin:0 0 1rem; }
 .drawer__view { display:block; text-align:center; margin-top:.8rem; font-size:.88rem; color:var(--ink-soft); text-decoration:underline; }
 @media (prefers-reduced-motion:reduce){ .drawer,.drawer-overlay,.reveal { transition:none; } }
+
+/* ============================================================
+   HOME con ositos cayendo + botones borde multicolor
+   ============================================================ */
+.bears { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.bear { position:absolute; top:-10%; will-change:transform; opacity:.9; }
+.bear svg { display:block; width:100%; height:auto; filter:drop-shadow(0 6px 8px rgba(0,0,0,.08)); }
+@keyframes bearfall { 0% { transform:translateY(-12vh) rotate(0deg); } 100% { transform:translateY(116vh) rotate(360deg); } }
+
+/* En la home: secciones transparentes para que se vean los ositos, todo centrado */
+body.template-index { background:#FBF5EC; }
+body.template-index .flavors,
+body.template-index .founder,
+body.template-index .benes,
+body.template-index .ugcwall,
+body.template-index .press { background:transparent; border-color:transparent; }
+body.template-index main > section { position:relative; z-index:1; }
+body.template-index .site-header { background:color-mix(in oklab, #FBF5EC 86%, transparent); }
+
+/* Hero centrado tipo landing */
+.hero--bears { text-align:center; padding-block:clamp(56px,11vw,128px); }
+.hero--bears .hero__inner { max-width:660px; margin-inline:auto; display:flex; flex-direction:column; align-items:center; }
+.hero--bears .hero__stars { justify-content:center; }
+.hero--bears h1 { font-size:clamp(2.7rem,9vw,5rem); }
+.hero--bears .lead { max-width:34ch; margin:1rem auto 1.8rem; }
+.hero--bears .hero__cta { display:flex; flex-direction:column; align-items:center; gap:.9rem; }
+
+/* Botón con borde multicolor en movimiento */
+.rainbow { display:inline-block; border-radius:var(--pill); padding:3px;
+  background:linear-gradient(90deg,#D8232A,#1F6FB2,#6A4E9C,#3F8F4E,#D8232A);
+  background-size:300% 100%; animation:rainbowmove 4s linear infinite; box-shadow:var(--shadow-soft); }
+.rainbow .btn { display:flex; border-radius:calc(var(--pill) - 2px); }
+@keyframes rainbowmove { to { background-position:300% 0; } }
+@media (prefers-reduced-motion:reduce){ .rainbow { animation:none; } .bear { display:none; } }
+
+/* Sección genérica centrada para la home */
+.center-block { text-align:center; max-width:640px; margin-inline:auto; }
+.center-block .lead { margin-inline:auto; }
+
+/* ============================================================
+   Página de producto — extras estilo glowbabe
+   ============================================================ */
+.pdp__urgency { display:inline-flex; gap:.5em; align-items:center; font-size:.8rem; font-weight:700;
+  color:var(--acv); background:color-mix(in oklab, var(--acv) 9%, transparent); padding:.45em .9em;
+  border-radius:var(--pill); margin-bottom:1rem; }
+.pdp__urgency .dot, .stock .dot { width:8px; height:8px; border-radius:50%; background:var(--acv); animation:pulse 1.3s infinite; }
+@keyframes pulse { 50% { opacity:.25; } }
+
+.refill { display:flex; gap:1.3rem; justify-content:center; flex-wrap:wrap; font-size:.82rem; color:var(--ink-soft); margin-top:.8rem; }
+.refill span { display:inline-flex; gap:.4em; align-items:center; }
+.refill svg { width:15px; height:15px; }
+.stock { display:flex; gap:.45em; align-items:center; justify-content:center; margin-top:.7rem; font-size:.85rem; font-weight:700; color:var(--acv); }
+
+/* Tabla comparativa */
+.compare-wrap { max-width:720px; margin-inline:auto; overflow-x:auto; }
+.compare { width:100%; border-collapse:collapse; font-size:.92rem; }
+.compare th, .compare td { padding:.85rem .5rem; text-align:center; border-bottom:1px solid var(--line); }
+.compare thead th { font-weight:800; font-size:.82rem; vertical-align:bottom; }
+.compare .feat { text-align:left; font-weight:600; }
+.compare tbody tr:nth-child(even) { background:color-mix(in oklab, var(--bg-3) 45%, transparent); }
+.compare .col-goli { background:color-mix(in oklab, var(--acv) 9%, transparent); font-family:var(--font-brand); font-weight:800; }
+.compare td.col-goli { color:var(--acv); }
+.compare .yes { color:var(--green-ok); font-weight:800; }
+.compare .no { color:#C8BBAd; }
+
+/* Bloque foto + íconos de beneficio */
+.bshot { display:grid; gap:clamp(22px,4vw,48px); align-items:center; }
+@media (min-width:760px){ .bshot { grid-template-columns:1fr 1fr; } }
+.bshot__img img { width:100%; border-radius:var(--r-lg); box-shadow:var(--shadow-soft); object-fit:cover; aspect-ratio:4/5; }
+.bshot__list { display:grid; gap:1.3rem; }
+.bitem { display:flex; gap:1rem; align-items:center; text-align:left; }
+.bitem svg { width:34px; height:34px; color:var(--ink); flex:none; }
+.bitem b { display:block; font-size:1rem; }
+.bitem span { color:var(--muted); font-size:.88rem; }
+
+/* Reseñas producto */
+.pdp-reviews { display:grid; gap:1rem; }
+@media (min-width:760px){ .pdp-reviews { grid-template-columns:repeat(3,1fr); } }
+.pdp-review { background:var(--bg-2); border:1px solid var(--line); border-radius:var(--r); padding:1.3rem; margin:0; display:flex; flex-direction:column; }
+.pdp-review .s { color:var(--gold); letter-spacing:1px; margin-bottom:.5rem; }
+.pdp-review p { font-size:.94rem; color:var(--ink-soft); }
+.pdp-review figcaption { font-weight:700; font-size:.88rem; margin-top:auto; }
+.pdp-review figcaption span { display:block; color:var(--green-ok); font-weight:600; font-size:.74rem; }
+
+/* Garantía banner producto */
+.pdp-guarantee { display:flex; gap:1.3rem; align-items:center; justify-content:center; background:var(--bg-3);
+  border-radius:var(--r-lg); padding:clamp(1.4rem,3vw,2rem); max-width:680px; margin-inline:auto; }
+.pdp-guarantee__seal { width:92px; height:92px; border-radius:50%; background:#fff; border:2px dashed var(--ink);
+  display:grid; place-content:center; text-align:center; font-weight:800; line-height:1; flex:none; }
+.pdp-guarantee__seal b { display:block; font-size:1.7rem; }
+.pdp-guarantee h3 { margin-bottom:.3rem; }
+.pdp-guarantee p { margin:0; font-size:.92rem; }
+
+/* Barra de compra fija (mobile) */
+.buybar { position:fixed; left:0; right:0; bottom:0; z-index:70;
+  background:color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter:blur(10px);
+  border-top:1px solid var(--line); padding:.7rem var(--gutter); display:flex; gap:1rem; align-items:center;
+  transform:translateY(130%); transition:transform .3s ease; }
+.buybar.show { transform:none; }
+.buybar__info strong { display:block; font-size:.92rem; line-height:1.1; }
+.buybar__info small { color:var(--muted); font-size:.78rem; }
+.buybar .btn { margin-left:auto; padding:.9em 1.7em; }
+@media (min-width:820px){ .buybar { display:none; } }
