@@ -39,25 +39,41 @@
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
 
+  /* ---------- Selector de packs ---------- */
+  function syncPackSelection(input) {
+    var group = input.closest(".packs");
+    if (!group) return;
+    group.querySelectorAll(".pack").forEach(function (pack) {
+      var radio = pack.querySelector('input[type="radio"]');
+      pack.classList.toggle("is-selected", !!radio && radio.checked);
+    });
+  }
+  document.querySelectorAll('.pack input[type="radio"]').forEach(function (input) {
+    syncPackSelection(input);
+    input.addEventListener("change", function () { syncPackSelection(input); });
+  });
+
   /* ---------- Ositos de goma cayendo (fondo de la home) ---------- */
   var bearLayer = document.querySelector("[data-bears]");
-  if (bearLayer && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+  if (bearLayer) {
     var bcolors = ["#D8232A", "#1F6FB2", "#6A4E9C", "#3F8F4E"];
-    var bsvg = '<svg viewBox="0 0 40 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
-      '<circle cx="11" cy="9" r="5"/><circle cx="29" cy="9" r="5"/><circle cx="20" cy="15" r="9.5"/>' +
-      '<rect x="8" y="21" width="24" height="26" rx="12"/>' +
-      '<circle cx="6" cy="28" r="5"/><circle cx="34" cy="28" r="5"/>' +
-      '<circle cx="13" cy="46" r="5.5"/><circle cx="27" cy="46" r="5.5"/></svg>';
-    var bn = window.innerWidth < 700 ? 12 : 22;
+    var bsvg = '<svg viewBox="0 0 80 98" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<path fill="currentColor" d="M25.2 14.9C20.8 6.2 9.3 8.4 8.3 18c-.5 4.5 1.6 8.1 5.4 10.1-3.8 5.2-5.3 12-3.4 19.1C4.7 50.5 2.5 58.5 7 64.1c3.5 4.4 9.3 4.7 13.6 1.8.8 7.9 4.9 15.1 10.9 18.8-2.5 5.3.8 11.3 6.7 11.9 6.4.6 10.7-4.7 9.2-10.5 6.7-3.4 11.4-10.8 12.4-19.7 4.3 2.5 9.8 1.9 13.1-2.3 4.5-5.6 2.3-13.6-3.3-16.9 1.9-7.2.4-14-3.5-19.2 3.8-2.1 5.9-5.7 5.4-10.2-1-9.5-12.4-11.7-16.8-3.1-8.1-3.7-21.4-3.7-29.5.2Z"/>' +
+      '<path fill="#fff" opacity=".26" d="M18 31.8c6.1-10.2 20.6-13.1 29.8-10.6-11.1.4-20.4 4.5-25.3 12.2-2.2 3.5-7.1 2.1-4.5-1.6Z"/>' +
+      '<ellipse cx="21.8" cy="52.5" rx="7.8" ry="10.8" fill="#fff" opacity=".16" transform="rotate(-24 21.8 52.5)"/>' +
+      '<ellipse cx="55.5" cy="51" rx="6.6" ry="9.8" fill="#fff" opacity=".13" transform="rotate(24 55.5 51)"/>' +
+      '<ellipse cx="29" cy="75" rx="7.5" ry="4.5" fill="#fff" opacity=".15" transform="rotate(-10 29 75)"/>' +
+      '</svg>';
+    var bn = window.innerWidth < 700 ? 10 : 18;
     for (var i = 0; i < bn; i++) {
       var bear = document.createElement("div");
       bear.className = "bear";
-      var size = 18 + Math.random() * 26;
-      var dur = 7 + Math.random() * 8;
+      var size = 22 + Math.random() * 30;
+      var dur = 8 + Math.random() * 10;
       bear.style.left = (Math.random() * 100) + "%";
       bear.style.width = size + "px";
       bear.style.color = bcolors[i % 4];
-      bear.style.opacity = (0.5 + Math.random() * 0.4).toFixed(2);
+      bear.style.opacity = (0.22 + Math.random() * 0.22).toFixed(2);
       bear.style.animation = "bearfall " + dur.toFixed(2) + "s linear infinite";
       bear.style.animationDelay = (-Math.random() * dur).toFixed(2) + "s";
       bear.innerHTML = bsvg;
@@ -107,7 +123,7 @@
   function render(cart) {
     setCount(cart.item_count);
     if (!cart.item_count) {
-      body.innerHTML = '<p class="drawer__empty">Tu carro está vacío.<br><a href="/#oferta" style="color:var(--apple-dark);text-decoration:underline">Ver las gomitas</a></p>';
+      body.innerHTML = '<p class="drawer__empty">Tu carro está vacío.<br><a href="/collections/sabores" style="color:var(--ink);text-decoration:underline">Ver las gomitas</a></p>';
       if (foot) foot.hidden = true;
       return;
     }
